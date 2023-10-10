@@ -4,7 +4,7 @@ import { PokemonScreen } from '../screens/PokemonScreen';
 
 const Stack = createStackNavigator();
 
-export function StackNavigator() {
+export function Navigator() {
   return (
     <Stack.Navigator>
       <Stack.Screen name="Home" component={HomeScreen} />
