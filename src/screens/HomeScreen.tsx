@@ -5,6 +5,7 @@ import { styles } from '../theme/appTheme';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { usePokemonPaginated } from '../hooks/usePokemonPaginated';
 import { ActivityIndicator } from 'react-native';
+import { FadeInImage } from '../components/FadeInImage';
 
 export const HomeScreen = () => {
 
@@ -27,8 +28,8 @@ export const HomeScreen = () => {
         data={ simplePokemonList }
         keyExtractor={ (pokemon) => pokemon.id}
         showsVerticalScrollIndicator= {false}
-        renderItem={ ({ item }) => ( <Image
-          source={{ uri: item.picture}}
+        renderItem={ ({ item }) => ( <FadeInImage
+          uri={item.picture}
           style={{
             width:100,
             height:100
