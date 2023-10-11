@@ -3,6 +3,7 @@ import { Dimensions, StyleSheet, Text, View, TouchableOpacity, Image } from 'rea
 import ImageColors from 'react-native-image-colors'
 import { SimplePokemon } from '../interfaces/pokemonInterfaces';
 import { FadeInImage } from './FadeInImage';
+import { useNavigation } from '@react-navigation/native';
 
 const windowWidth = Dimensions.get('window').width
 
@@ -13,7 +14,8 @@ interface Props {
 export const PokemonCard = ({ pokemon }: Props) => {
 
   const [bgColor, setBgColor] = useState('grey');
-  const isMounted = useRef(true)
+  const isMounted = useRef(true);
+  const navigation = useNavigation<any>();
 
   useEffect(() => {
     ImageColors.getColors(pokemon.picture, {
@@ -21,7 +23,7 @@ export const PokemonCard = ({ pokemon }: Props) => {
       cache: true,
       key: pokemon.picture,
     }).then((colors: any) => {
-      
+
       if (!isMounted.current) return;
 
       colors.platform === 'ios';
@@ -40,16 +42,22 @@ export const PokemonCard = ({ pokemon }: Props) => {
           break;
       }
     });
-    return () =>{
+    return () => {
       isMounted.current = false
     }
   }, []);
-  
+
 
 
   return (
     <TouchableOpacity
-      activeOpacity={0.9}>
+      activeOpacity={0.9}
+      onPress={
+        () => navigation.navigate('Pokemon', {
+          simplePokemon: pokemon,
+          color:bgColor
+        })
+      }>
       <View style={{
         ...styles.cardContainer,
         width: windowWidth * 0.4,
@@ -119,13 +127,13 @@ const styles = StyleSheet.create({
     right: -8,
     bottom: -5
   },
-  pokebolaContainer:{
-    width:100,
-    height:100,
+  pokebolaContainer: {
+    width: 100,
+    height: 100,
     position: 'absolute',
     bottom: 0,
     right: 0,
-    overflow:'hidden',
+    overflow: 'hidden',
     opacity: 0.5
   }
 
