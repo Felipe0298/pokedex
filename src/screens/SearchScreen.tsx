@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { Text, View, Platform, FlatList, Dimensions } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { SearchInput } from '../components/SearchInput';
@@ -18,20 +18,28 @@ export const SearchScreen = () => {
   const [pokemonFiltered, setPokemonFiltered] = useState<SimplePokemon[]>([])
 
   const [term, setTerm] = useState('');
-  
+
   useEffect(() => {
-    
-    if( term.length === 0) {
+
+    if (term.length === 0) {
       return setPokemonFiltered([])
     }
 
-    setPokemonFiltered(
-      simplePokemonList.filter( (poke) => poke.name.toLowerCase().includes( term.toLowerCase() ) )
-    );
-  
-    
+    if (isNaN(Number(term))) {
+      setPokemonFiltered(
+        simplePokemonList.filter((poke) => poke.name.toLowerCase().includes(term.toLowerCase()))
+      );
+    } else{
+      const pokemonById = simplePokemonList.find( poke => poke.id === term);
+      setPokemonFiltered(
+        (pokemonById) ? [pokemonById] : [] 
+      )
+    }
+
+
+
   }, [term])
-  
+
 
   if (isFetching) {
     return <Loading />
