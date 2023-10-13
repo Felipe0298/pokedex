@@ -25,6 +25,7 @@ export const Tabs = () => {
       }}
     >
       <Tab.Screen name="HomeScreen" component={Navigator}
+      
         options={{
           tabBarLabel: 'Listado',
           tabBarIcon: ({ color }) => (
@@ -32,18 +33,20 @@ export const Tabs = () => {
               size={20}
               name='list-outline'
             />
-          )
+          ),
+          headerShown: false
         }}
       />
       <Tab.Screen name="SearchScreen" component={SearchScreen}
         options={{
-          tabBarLabel: 'Listado',
+          tabBarLabel: 'Busqueda',
           tabBarIcon: ({ color }) => (
             <Icon color={color}
               size={20}
               name='list-outline'
             />
-          )
+          ),
+          headerShown: false
         }} />
     </Tab.Navigator>
   );
